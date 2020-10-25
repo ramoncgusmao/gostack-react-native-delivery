@@ -118,7 +118,7 @@ const FoodDetails: React.FC = () => {
   }
 
   function handleDecrementFood(): void {
-    setFoodQuantity(foodQuantity > 0 ? foodQuantity - 1 : 0);
+    setFoodQuantity(foodQuantity > 1 ? foodQuantity - 1 : 1);
   }
 
   const toggleFavorite = useCallback(() => {
@@ -130,7 +130,8 @@ const FoodDetails: React.FC = () => {
       (accumulator, extra) => accumulator + extra.value * extra.quantity,
       0,
     );
-    return food.price * foodQuantity + valueExtras;
+    const price = food.price * foodQuantity + valueExtras;
+    return formatValue(price);
   }, [extras, food, foodQuantity]);
 
   async function handleFinishOrder(): Promise<void> {
